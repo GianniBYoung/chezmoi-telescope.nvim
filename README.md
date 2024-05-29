@@ -2,23 +2,27 @@
 Custom Telescope Picker or Chez Moi Managed Dot files
 
 # Installation
-Install with Lazy:
+All that is needed is to install the plugin and load the `telescope extension` via `require("telescope").load_extension("chezmoi")`.
+
+Here is an example with Lazy:
 ```lua
 {
-    'GianniBYoung/chezmoi-telescope.nvim',
+    "nvim-telescope/telescope.nvim",
     dependencies = {
-      'nvim-telescope/telescope.nvim',
-      'nvim-tree/nvim-web-devicons'
+        { "GianniBYoung/chezmoi-telescope.nvim" },
     },
     config = function()
-      require('telescope').load_extension('chezmoi')
-    end
-  }
+        require("telescope").load_extension("chezmoi")
+    end,
+}
 ```
+
 ## Pre-reqs
-- Telescope
-- Dev Icons
-- Chez Moi
+-  [Chez Moi](https://www.chezmoi.io/)
+
+-  [Telescope](https://github.com/nvim-telescope/telescope.nvim/tree/master)
+
+-  [nvim-web-devicons (optional)](https://github.com/nvim-tree/nvim-web-devicons)
 
 ## Usage
 `:Telescope chezmoi dotfiles`
