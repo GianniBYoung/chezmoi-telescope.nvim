@@ -32,7 +32,7 @@ This plugin provides a custom picker for telescope that populates results with f
 
 # Roadmap
 - Better icons in picker
-- Create commands to `{add,re-add,remove}` files
+- Create commands to `{add,re-add,remove,update,apply}` files
 - Fix the naming bug
 - Set ft on opening for templates
 
