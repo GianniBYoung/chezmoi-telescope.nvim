@@ -1,5 +1,5 @@
 # chezmoi-telescope.nvim
-Custom Telescope Picker or Chez Moi Managed Dot files
+Custom Telescope Picker for Chez Moi Managed Dot files
 
 # Installation
 All that is needed is to install the plugin and load the `telescope extension` via `require("telescope").load_extension("chezmoi")`.
@@ -28,11 +28,13 @@ Here is an example with Lazy:
 `:Telescope chezmoi dotfiles`
 
 # Features
-This plugin provides a custom picker for telescope that populates results with files from `$CHEZMOI_SOURCE_DIR`.
+This plugin provides a custom picker for telescope that populates results with files from `$CHEZMOI_SOURCE_DIR` and opens the result in a new buffer on selection.
 
 # Roadmap
 - Better icons in picker
 - Create commands to `{add,re-add,remove}` files
+- Fix the naming bug
+- Set ft on opening for templates
 
 # Contributing
 If this plugin is missing functionality for your use case please open an issue or submit a PR!
