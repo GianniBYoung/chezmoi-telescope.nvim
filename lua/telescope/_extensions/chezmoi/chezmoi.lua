@@ -18,13 +18,13 @@ local has_devicons, devicons = pcall(require, "nvim-web-devicons")
 M.dotfiles = function(opts)
 	opts = opts or {}
 	local results = {}
-	local chezmoi_source_dir = os.getenv("CHEZMOI_SOURCE_DIR") or "~/.local/share/chezmoi"
+	local chezmoi_source_dir = io.popen("chezmoi source-path"):read("*a")
 
 	local handle = io.popen("find " .. chezmoi_source_dir .. ' -type f ! -path "*/.git/*" ! -name ".*"')
 	-- need to append .chez and other hidden files but not git specific ones
 	if handle then
 		for line in handle:lines() do
-			local relative_path = line:sub(#chezmoi_source_dir + 2):gsub("dot_", ".")
+			local relative_path = line:sub(#chezmoi_source_dir + 1):gsub("dot_", ".")
 			table.insert(results, { full_path = line, display = relative_path })
 		end
 		handle:close()
