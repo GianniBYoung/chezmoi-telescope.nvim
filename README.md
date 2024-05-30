@@ -54,7 +54,9 @@ This plugin provides a custom picker for telescope that populates results with f
 
 - Better icons in picker
 
-- Set ft on opening for templates
+- Configuration options
+  - Include or exclude `tmpl` extension (current default is to exclude)
+  - Set FT on opening
 
 # Contributing
 

@@ -14,6 +14,15 @@ local entry_display = require("telescope.pickers.entry_display")
 local make_entry = require("telescope.make_entry")
 local has_devicons, devicons = pcall(require, "nvim-web-devicons")
 
+local function set_buffer_filetype(path)
+	local filetype = vim.filetype.match({ filename = path })
+	if filetype then
+		vim.bo.filetype = filetype
+	else
+		print("Could not detect filetype for: " .. path)
+	end
+end
+
 -- Populate results with files from $CHEZMOI_SOURCE_DIR replacing 'dot_' with '.' and trimming the off the leading path in the display
 M.dotfiles = function(opts)
 	opts = opts or {}
@@ -24,7 +33,7 @@ M.dotfiles = function(opts)
 		io.popen("find " .. chezmoi_source_dir .. ' -type f ! -path "*/.git/*" ! -name ".*" -o -name ".chezmoi*"')
 	if handle then
 		for line in handle:lines() do
-			local relative_path = line:sub(#chezmoi_source_dir + 2):gsub("dot_", ".")
+			local relative_path = line:sub(#chezmoi_source_dir + 2):gsub("dot_", "."):gsub("%.tmpl$", "")
 			table.insert(results, { full_path = line, display = relative_path })
 		end
 		handle:close()
@@ -54,6 +63,18 @@ M.dotfiles = function(opts)
 			}),
 			sorter = sorters.get_fuzzy_file(),
 			previewer = previewers.cat.new(opts),
+			attach_mappings = function(prompt_bufnr, map)
+				local actions = require("telescope.actions")
+				local action_state = require("telescope.actions.state")
+				actions.select_default:replace(function()
+					actions.close(prompt_bufnr)
+					local selection = action_state.get_selected_entry()
+					vim.cmd("edit " .. selection.value)
+					set_buffer_filetype(selection.display)
+				end)
+
+				return true
+			end,
 		})
 		:find()
 end
