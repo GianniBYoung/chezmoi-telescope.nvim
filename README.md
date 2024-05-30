@@ -1,6 +1,14 @@
 # chezmoi-telescope.nvim
 
-Custom Telescope Picker for Chez Moi Managed Dot Files
+Custom Telescope Picker for Chez Moi Managed Dot Files!
+
+Also adds neovim commands to:
+
+- `add`
+
+- `forget`
+
+- `update` chezmoi's source
 
 # Installation
 
