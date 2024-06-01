@@ -38,13 +38,17 @@ Here is an example with Lazy:
 
 ## Usage
 
-`:Telescope chezmoi dotfiles` -> Open telescope picker populated with Chezmoi managed dot files
+- `:Telescope chezmoi dotfiles` -> Open telescope picker populated with Chezmoi managed dot files
+  - This opens the file in chezmoi's source dir
 
-`:ChezmoiAdd` -> Add the current file to Chezmoi
+- `:Telescope chezmoi livedotfiles` -> Open telescope picker populated with Chezmoi managed dot files
+  - This opens the actual dotfile on your system
 
-`:ChezmoiRemove` -> Remove the current file from Chezmoi
+- `:ChezmoiAdd` -> Add the current file to Chezmoi
 
-`:ChezmoiUpdate` -> Pull down the remote source
+- `:ChezmoiRemove` -> Remove the current file from Chezmoi
+
+- `:ChezmoiUpdate` -> Pull down the remote source
 
 # Features
 
@@ -56,7 +60,8 @@ This plugin provides a custom picker for telescope that populates results with f
 
 - Configuration options
   - Include or exclude `tmpl` extension (current default is to exclude)
-  - Set FT on opening
+
+- De-duplicate code across `:Telescope chezmoi (live)dotfiles`
 
 # Contributing
 

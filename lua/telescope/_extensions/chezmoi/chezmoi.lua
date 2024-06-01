@@ -13,6 +13,9 @@ local previewers = require("telescope.previewers")
 local entry_display = require("telescope.pickers.entry_display")
 local make_entry = require("telescope.make_entry")
 local has_devicons, devicons = pcall(require, "nvim-web-devicons")
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+local chezmoi_source_dir = io.popen("chezmoi source-path"):read("*a"):gsub("%s+", "")
 
 local function set_buffer_filetype(path)
 	local filetype = vim.filetype.match({ filename = path })
@@ -23,12 +26,8 @@ local function set_buffer_filetype(path)
 	end
 end
 
--- Populate results with files from $CHEZMOI_SOURCE_DIR replacing 'dot_' with '.' and trimming the off the leading path in the display
-M.dotfiles = function(opts)
-	opts = opts or {}
+local function populatePicker()
 	local results = {}
-	local chezmoi_source_dir = io.popen("chezmoi source-path"):read("*a"):gsub("%s+", "")
-
 	local handle =
 		io.popen("find " .. chezmoi_source_dir .. ' -type f ! -path "*/.git/*" ! -name ".*" -o -name ".chezmoi*"')
 	if handle then
@@ -38,6 +37,13 @@ M.dotfiles = function(opts)
 		end
 		handle:close()
 	end
+	return results
+end
+
+-- Populate results with files from $CHEZMOI_SOURCE_DIR replacing 'dot_' with '.' and trimming the off the leading path in the display
+M.dotfiles = function(opts)
+	opts = opts or {}
+	local results = populatePicker()
 
 	pickers
 		.new(opts, {
@@ -64,8 +70,6 @@ M.dotfiles = function(opts)
 			sorter = sorters.get_fuzzy_file(),
 			previewer = previewers.cat.new(opts),
 			attach_mappings = function(prompt_bufnr, map)
-				local actions = require("telescope.actions")
-				local action_state = require("telescope.actions.state")
 				actions.select_default:replace(function()
 					actions.close(prompt_bufnr)
 					local selection = action_state.get_selected_entry()
@@ -79,4 +83,44 @@ M.dotfiles = function(opts)
 		:find()
 end
 
+M.livedotfiles = function(opts)
+	opts = opts or {}
+	local results = populatePicker()
+
+	pickers
+		.new(opts, {
+			prompt_title = "Chezmoi Managed Dot Files (The ones in use!)",
+			finder = finders.new_table({
+				results = results,
+				entry_maker = function(entry)
+					local icon = has_devicons
+							and devicons.get_icon(
+								entry.full_path,
+								string.match(entry.full_path, "%.%w+$"),
+								{ default = true }
+							)
+						or ""
+
+					return {
+						value = entry.full_path,
+						display = icon and (icon .. " " .. entry.display) or entry.display,
+						ordinal = entry.display,
+						filename = "$HOME/" .. entry.display,
+					}
+				end,
+			}),
+			sorter = sorters.get_fuzzy_file(),
+			previewer = previewers.cat.new(opts),
+			attach_mappings = function(prompt_bufnr, map)
+				actions.select_default:replace(function()
+					actions.close(prompt_bufnr)
+					local selection = action_state.get_selected_entry()
+					vim.cmd("edit " .. selection.filename)
+				end)
+
+				return true
+			end,
+		})
+		:find()
+end
 return M
