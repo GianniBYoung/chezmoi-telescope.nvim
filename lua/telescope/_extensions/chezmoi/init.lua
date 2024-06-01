@@ -21,5 +21,6 @@ end, {})
 return telescope.register_extension({
 	exports = {
 		dotfiles = chezmoi.dotfiles,
+		livedotfiles = chezmoi.livedotfiles,
 	},
 })
