@@ -41,7 +41,7 @@ Here is an example with Lazy:
 - `:Telescope chezmoi dotfiles` -> Open telescope picker populated with Chezmoi managed dot files
   - This opens the file in chezmoi's source dir
 
-- `:Telescope chezmoi livedotfiles` -> Open telescope picker populated with Chezmoi managed dot files
+- `:Telescope chezmoi dotfiles liveDots=true` -> Open telescope picker populated with (Live) Chezmoi managed dot files
   - This opens the actual dotfile on your system
 
 - `:ChezmoiAdd` -> Add the current file to Chezmoi
@@ -49,6 +49,17 @@ Here is an example with Lazy:
 - `:ChezmoiRemove` -> Remove the current file from Chezmoi
 
 - `:ChezmoiUpdate` -> Pull down the remote source
+
+### Options
+The available options are:
+- `icons` bool(true) - Enable or disable icons
+- `liveDots` bool(false) - Populate the picker with the actual dotfiles your system is using - aka 'live dot files'
+
+Options can be set in the following ways:
+
+1. `:Telescope chezmoi dotfiles option1=value1 option2=bool2`
+
+2. `require('telescope').extensions.chezmoi.dotfiles({option1="value1", option2=bool2})`
 
 # Features
 
@@ -58,10 +69,7 @@ This plugin provides a custom picker for telescope that populates results with f
 
 - Better icons in picker
 
-- Configuration options
-  - Include or exclude `tmpl` extension (current default is to exclude)
-
-- De-duplicate code across `:Telescope chezmoi (live)dotfiles`
+- Better error handling
 
 # Contributing
 
