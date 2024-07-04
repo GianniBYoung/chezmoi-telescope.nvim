@@ -1,11 +1,5 @@
 local M = {}
 
--- prereqs
-local has_telescope, _ = pcall(require, "telescope")
-if not has_telescope then
-	error("This plugin requires nvim-telescope/telescope.nvim")
-end
-
 local finders = require("telescope.finders")
 local sorters = require("telescope.sorters")
 local pickers = require("telescope.pickers")
