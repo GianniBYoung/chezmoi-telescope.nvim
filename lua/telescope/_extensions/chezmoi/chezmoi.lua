@@ -1,11 +1,5 @@
 local M = {}
 
--- prereqs
-local has_telescope, _ = pcall(require, "telescope")
-if not has_telescope then
-	error("This plugin requires nvim-telescope/telescope.nvim")
-end
-
 local finders = require("telescope.finders")
 local sorters = require("telescope.sorters")
 local pickers = require("telescope.pickers")
@@ -20,7 +14,7 @@ local function set_buffer_filetype(path)
 	if filetype then
 		vim.bo.filetype = filetype
 	else
-		print("Could not detect filetype for: " .. path)
+		vim.notify("Could not detect filetype for: " .. path)
 	end
 end
 
