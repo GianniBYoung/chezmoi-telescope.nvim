@@ -20,7 +20,7 @@ local function set_buffer_filetype(path)
 	if filetype then
 		vim.bo.filetype = filetype
 	else
-		print("Could not detect filetype for: " .. path)
+		vim.notify("Could not detect filetype for: " .. path)
 	end
 end
 
