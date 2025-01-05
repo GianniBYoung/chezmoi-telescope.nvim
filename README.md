@@ -8,6 +8,9 @@ Also adds neovim commands to:
 
 - `forget`
 
+- 're-add'
+  - Chezmoi does not overwrite template files and neither will this command
+
 - `update` chezmoi's source
 
 # Installation
@@ -44,9 +47,11 @@ Here is an example with Lazy:
 - `:Telescope chezmoi dotfiles liveDots=true` -> Open telescope picker populated with (Live) Chezmoi managed dot files
   - This opens the actual dotfile on your system
 
-- `:ChezmoiAdd` -> Add the current file to Chezmoi
+- `:ChezmoiAdd` -> `add` the current file to Chezmoi
 
-- `:ChezmoiRemove` -> Remove the current file from Chezmoi
+- `:ChezmoiReAdd` -> `re-add` the current file to Chezmoi
+
+- `:ChezmoiRemove` -> `remove` the current file from Chezmoi
 
 - `:ChezmoiUpdate` -> Pull down the remote source
 
