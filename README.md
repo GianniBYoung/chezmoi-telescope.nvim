@@ -2,6 +2,8 @@
 
 Custom Telescope Picker for Chez Moi Managed Dot Files!
 
+If you prefer snacks.nvim look at https://github.com/GianniBYoung/chezmoi-snacks.nvim
+
 Also adds neovim commands to:
 
 - `add`
